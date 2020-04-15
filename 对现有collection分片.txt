@@ -1,0 +1,11 @@
+
+对于已经集群的mongodb，当有新的collection需要分片时候：比如 tagSim ，原来无需分片，现在数据很大，需要分片。
+
+用root用户登陆 30000，运行：
+
+use simman
+db.tagSim.ensureIndex({simNum:"hashed"})
+
+//sh.enableSharding("simman") 此句一般不需要执行，因为已经启动分片功能了。
+sh.shardCollection("simman.tagSim", {simNum:"hashed"})
+
